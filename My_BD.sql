@@ -91,8 +91,8 @@ CREATE TABLE Teachers
 idTeachers int primary key identity(1,1) not null,
 NameTeachers nvarchar(max) not null default('---'),
 SurnameTeachers nvarchar(max) not null default('---'),
-EmploymentDate date not null CHECK(EmploymentDate>'01.01.1990.'),
-SalaryTeachers money not null CHECK(SalaryTeachers > 0 and SalaryTeachers != 0),
+EmploymentDate date not null CHECK(EmploymentDate>='1990-01-01'),
+SalaryTeachers money not null CHECK(SalaryTeachers >= 0 and SalaryTeachers != 0),
 Premium money not null CHECK(Premium > 0) default(0)
 )
 GO
@@ -100,15 +100,15 @@ CREATE TABLE Groups
 (
 idGroups int primary key identity(1, 1) not null,
 NameGroups nvarchar(10) not null default('---') unique,
-Rating int not null check(Rating > 0 and Rating < 5),
-Year int not null check(Year > 1 and Year < 5)
+Rating int not null check(Rating >= 0 and Rating <= 5),
+Year int not null check(Year >= 1 and Year <= 5)
 )
 GO
 CREATE TABLE Departments
 (
 idDepartments int primary key identity(1, 1) not null,
 NameDepartments nvarchar(100) not null default('---') unique,
-Financing money not null check(Financing > 0) default(0)
+Financing money not null check(Financing >= 0) default(0)
 )
 GO
 CREATE TABLE Faculties
@@ -116,3 +116,4 @@ CREATE TABLE Faculties
 idFaculties int primary key identity(1, 1) not null,
 NameFaculties nvarchar(100) not null default('---') unique
 )
+DROP TABLE Faculties

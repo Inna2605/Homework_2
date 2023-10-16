@@ -54,6 +54,10 @@
 --? Не може містити null-значення.
 --? Не може бути порожнім.
 --? Має бути унікальним.
+--? Декан (Dean). Декан факультету.
+--? Тип даних — nvarchar(max).
+--? Не може містити null-значення.
+--? Не може бути порожнім.
 --4. Викладачі (Teachers)
 --? Ідентифікатор (Id). Унікальний ідентифікатор викладача.
 --? Тип даних — int.
@@ -93,7 +97,10 @@ NameTeachers nvarchar(max) not null default('---'),
 SurnameTeachers nvarchar(max) not null default('---'),
 EmploymentDate date not null CHECK(EmploymentDate>='1990-01-01'),
 SalaryTeachers money not null CHECK(SalaryTeachers >= 0 and SalaryTeachers != 0),
-Premium money not null CHECK(Premium > 0) default(0)
+Premium money not null CHECK(Premium >= 0) default(0),
+IsAssistant bit not null default(0),
+IsProfessor bit not null default(0),
+Position nvarchar(max) not null default('---')
 )
 GO
 CREATE TABLE Groups
@@ -114,6 +121,6 @@ GO
 CREATE TABLE Faculties
 (
 idFaculties int primary key identity(1, 1) not null,
-NameFaculties nvarchar(100) not null default('---') unique
+NameFaculties nvarchar(100) not null default('---') unique,
+Dean nvarchar(max) not null default('---')
 )
-DROP TABLE Faculties
